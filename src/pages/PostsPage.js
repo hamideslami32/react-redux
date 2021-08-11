@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-
-import { fetchPosts } from "../actions/postsActions";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts, postsSelector } from "../slices/posts";
 import { Post } from "../components/Post";
 
-const PostsPage = ({ dispatch, loading, posts, hasError }) => {
+const PostsPage = () => {
+  const dispatch = useDispatch();
+  const { posts, loading, hasError } = useSelector(postsSelector);
+
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
@@ -12,7 +14,7 @@ const PostsPage = ({ dispatch, loading, posts, hasError }) => {
   const renderPosts = () => {
     if (loading) return <p>Loading posts...</p>;
     if (hasError) return <p>Unable to display posts</p>;
-    return posts.map((post) => <Post key={post.id} post={post} />);
+    return posts.map((post) => <Post key={post.id} post={post} excerpt />);
   };
   return (
     <section>
@@ -32,6 +34,6 @@ const PostsPage = ({ dispatch, loading, posts, hasError }) => {
 
 // Or in this case (map all state)
 
-const mapStateToProps = (state) => state.posts;
+// const mapStateToProps = (state) => state.posts;
 
-export default connect(mapStateToProps)(PostsPage);
+export default PostsPage;
