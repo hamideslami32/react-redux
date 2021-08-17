@@ -24,7 +24,7 @@ const PostsPage = () => {
   );
 };
 
-// Map Rrdux state to React component props and ...
+// Map redux state to React component props and ...
 
 // const mapStateToProps = (state) => ({
 //   loading: state.posts.loading,
